@@ -72,7 +72,7 @@ T.B.D. <br><br>
 # 촬영 데이터 특징점 정보
 ### 특징점 위치 및 인덱스
 
-![특징점_index](./image/특징점_index.png)
+![Feature_index](./image/Feature_index.png)
 ##### 그림 5.특징점 위치 및 인덱스 예시 (얼굴사진출처: CMU Multi PIE face database)<br>
 
 * 특징점 인덱스 정보
