@@ -6,7 +6,7 @@
 
 
 # Download the Data
-KFACE 데이터셋은 'AI open innovation hub (http://www.aihub.or.kr/content/140)' 사이트의 안면데이터 부분 혹은 데이터 공유 사이트 (http://218.39.187.152:9091/) 에서 이용 가능합니다. 사이트 가입이 필요하며 이미지 신청을 하시면 다운로드 받으실 수 있습니다. 이미지 데이터를 다운로드하기 위해 데이터를 제공하는 연구기관(KIST) 사이트로 이동합니다.
+KFACE 데이터셋은 'AI open innovation hub (http://www.aihub.or.kr)' 사이트의 안면데이터 부분 혹은 데이터 공유 사이트 (http://kface.kist.re.kr) 에서 이용 가능합니다. 사이트 가입이 필요하며 이미지 신청을 하시면 다운로드 받으실 수 있습니다. 이미지 데이터를 다운로드하기 위해 데이터를 제공하는 연구기관(KIST) 사이트로 이동합니다.
 KFACE 데이터셋에 대한 자세한 데이터 정보는 하단을 참고해주시기 바랍니다.<br><br>
 
 # Sample Code
