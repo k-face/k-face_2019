@@ -1,0 +1,30 @@
+
+K-Face 데이터베이스 기반 얼굴 인식 학습/평가 가이드라인
+
+구성 :
+        models/LightCNN/light_cnn.py    // 모델 구조 선언 (본 가이드라인에서는 LightCNN[1]을 활용)
+        config.py                       // 이미지 폴더 경로, Learning Rate, Epoch 수 등 셋팅을 위한 파일
+        preprocessing.py                // 이미지 정규화
+        dataLoader.py                   // K-Face 데이터베이스 폴더 구조 체계 고려 이미지 로더
+        train.py                        // 학습을 위한 실행 파일
+        utils.py                        // 모델 저장 및 로드
+        worker.py                       // 모델 학습/평가 등 메인 클래스
+
+사전 요구 사항 :
+        K-Face 데이터베이스의 얼굴 영역만 Crop 된 이미지 (폴더 체계는 K-Face 데이터베이스 구조 체계 유지 필수)
+        Python 3.6 / PyTorch 1.2 / torchVision 0.4.0
+
+실행 방법 :
+        Training :
+            1. config.py 파일 내 config.imagePath 를 Crop된 얼굴 이미지로 구성된 최상위 폴더 경로 지정
+            2. config.py 파일 내 기타 설정 사항 셋팅 (각 설정 항목에 대한 설명은 config.py 파일 내 주석 참조)
+            3. python train.py 실행
+
+        Test :
+            1. config.py 파일 내 config.refImg & config.queryImg에 비교할 두장의 이미지 경로를 기입
+            2. python test.py 실행
+
+* 함께 제공되는 학습 모델은 가이드라인 소스 실행을 위한 샘플 모델로, K-Face 데이터베이스의 일부 데이터 셋으로 학습된 모델임
+
+Reference :
+[1] LightCNN : https://github.com/AlfredXiangWu/LightCNN
