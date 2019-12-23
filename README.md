@@ -10,7 +10,10 @@ KFACE 데이터셋은 'AI open innovation hub (http://www.aihub.or.kr)' 사이�
 KFACE 데이터셋에 대한 자세한 데이터 정보는 하단을 참고해주시기 바랍니다.<br><br>
 
 # Sample Code
-T.B.D. <br><br>
+[얼굴 인식](https://github.com/k-face/k-face_2019/tree/master/samples/recognition)
+<br>
+[얼굴 생성](https://github.com/k-face/k-face_2019/tree/master/samples/generation)
+ <br><br>
 
 
 # 촬영 장치 운용
