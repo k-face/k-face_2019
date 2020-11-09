@@ -33,7 +33,7 @@ def getImages(folder):
             image_obj = {'name': file, 'path': im_path}
             image_list.append(image_obj)
 
-            annot_file = os.path.splitext(file)[0] + ".txt"
+            annot_file = os.path.splitext(file)[0] + ".txt"     # annotation filename is based on the name of image
             annot_path = os.path.join(folder, annot_file)
             annot_obj = {'name': annot_file, 'path': annot_path } if os.path.exists(annot_path) else {'name':'None', 'path':'None'}
             annot_list.append(annot_obj)
@@ -73,7 +73,10 @@ class Iwindow(QtWidgets.QMainWindow, gui):
         if not self.folder:
             QtWidgets.QMessageBox.warning(self, 'No folder selected', 'Please select a valid folder')
             return
-        
+
+        # init & get images
+        self.image_id = -1
+        self.numImages = -1
         self.image_list, self.annot_list = getImages(self.folder)
         self.numImages = len(self.image_list)
         if self.numImages < 1:
@@ -81,17 +84,19 @@ class Iwindow(QtWidgets.QMainWindow, gui):
             return
 
         # make qt items
+        # annotation items
         self.annot_items = [QtWidgets.QListWidgetItem(l['name']) for l in self.annot_list]
-        # Warning: self.qlist_annots.clear()
+        # Error: self.qlist_annots.clear()
         while (self.qlist_annots.count() > 0):
             self.qlist_annots.takeItem(0)
         for item in self.annot_items:
             self.qlist_annots.addItem(item)
 
+        # image items
         self.image_items = [QtWidgets.QListWidgetItem(l['name']) for l in self.image_list]
         # Error: self.qlist_images.clear()
         # Instead, use takeItem (https://stackoverflow.com/questions/9594768/how-can-i-empty-a-qlistwidget-without-having-it-delete-all-of-the-qlistitemwidge)
-        while(self.qlist_images.count()>0):
+        while(self.qlist_images.count() > 0):
             self.qlist_images.takeItem(0)
         for item in self.image_items:
             self.qlist_images.addItem(item)
@@ -145,6 +150,8 @@ class Iwindow(QtWidgets.QMainWindow, gui):
         self.statusBar().showMessage(self.image_list[self.image_id]['path'])
 
     def item_select(self):
+        if self.image_id < 0:
+            return
         item = self.qlist_images.currentItem()
         if item != None:
             self.item_click(item)

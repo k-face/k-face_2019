@@ -80,21 +80,24 @@ class ImageViewer:
         ratio = float(self.qimage_scaled.width()) / float(self.qimage.width());
         painter = QPainter()
         painter.begin(self.qpixmap)
-        r = 10              # point radius
+        painter.setPen(QtCore.Qt.NoPen)
+        #painter.setWindow(0,0,self.qpixmap.width(), self.qpixmap.height())
+        r = 10      # point radius
+        rh = r/2    # TODO: Know why: https://blackberry.github.io/Cascades-Samples/scratchpad-src-draw-cpp.html
         if len(points["nose"]) > 0:
-            p = [int(i*ratio) for i in points["nose"]]; painter.setBrush(QtCore.Qt.green); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["nose"]]; painter.setBrush(QtCore.Qt.green); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["eyeR"]) > 0:
-            p = [int(i*ratio) for i in points["eyeR"]]; painter.setBrush(QtCore.Qt.yellow); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["eyeR"]]; painter.setBrush(QtCore.Qt.yellow); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["eyeL"]) > 0:
-            p = [int(i*ratio) for i in points["eyeL"]]; painter.setBrush(QtCore.Qt.darkYellow); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["eyeL"]]; painter.setBrush(QtCore.Qt.darkYellow); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["mouthR"]) > 0:
-            p = [int(i*ratio) for i in points["mouthR"]]; painter.setBrush(QtCore.Qt.cyan); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["mouthR"]]; painter.setBrush(QtCore.Qt.cyan); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["mouthL"]) > 0:
-            p = [int(i*ratio) for i in points["mouthL"]]; painter.setBrush(QtCore.Qt.darkCyan); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["mouthL"]]; painter.setBrush(QtCore.Qt.darkCyan); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["earR"]) > 0:
-            p = [int(i*ratio) for i in points["earR"]]; painter.setBrush(QtCore.Qt.magenta); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["earR"]]; painter.setBrush(QtCore.Qt.magenta); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         if len(points["earL"]) > 0:
-            p = [int(i*ratio) for i in points["earL"]]; painter.setBrush(QtCore.Qt.darkMagenta); painter.drawEllipse(p[0], p[1], r, r)
+            p = [int(i*ratio) for i in points["earL"]]; painter.setBrush(QtCore.Qt.darkMagenta); painter.drawEllipse(p[0]-rh, p[1]-rh, r, r)
         painter.end()
         self.qlabel_image.setPixmap(self.qpixmap)
 
@@ -133,10 +136,12 @@ class ImageViewer:
 
     def drawPoint(self, x, y):
         r = 10
+        rh = r/2    # TODO: Know why
         tmp_pixmap = QtGui.QPixmap(self.qpixmap)
         painter = QtGui.QPainter(tmp_pixmap)  # create painter
-        painter.setBrush(QtCore.Qt.green);
-        painter.drawEllipse(x, y, r, r)
+        painter.setPen(QtCore.Qt.NoPen)
+        painter.setBrush(QtCore.Qt.green)
+        painter.drawEllipse(x-rh, y-rh, r, r)
         painter.end()
         self.qlabel_image.setPixmap(tmp_pixmap)
 
@@ -318,8 +323,8 @@ class AnnotationManager:
         #print('loadFile: ' + txtFilePath)
         # (1)
         self.reset()
-        self.cam_index = self.findCameraIndex(imgFilePath)
-        self.findAnnotationFlag(self.cam_index)
+        self.cam_index = self.findCameraIndex(imgFilePath)  # txtFilePath can not be set
+        self.findAnnotationFlag(self.cam_index)             # determines which bboxes we will set
 
         if txtFilePath is 'None' or os.path.exists(txtFilePath) is False:    # None or not exist
             self.reset()
